@@ -1,7 +1,7 @@
 const inquirer = require("inquirer"),
       fs = require("fs"),
       axios = require("axios")
-      // puppeteer = require('puppeteer');
+      pdf = require('html-pdf');
 
 const { promisify } = require('util'),
       writeHTML = promisify(fs.writeFile);
@@ -46,7 +46,7 @@ function generateHTML(profile) {
 
           <div class="container">
     
-            <div class="card mb-3">
+            <div class="card m-5">
                 <h3 class="card-header">${profile.name}</h3>
                 <div class="card-body">
                   <h5 class="card-title">${profile.company}</h5>
@@ -90,11 +90,10 @@ async function getGit(username) {
     let html;
     await axios.get(queryUrl).then((profile) => {
    
-
     html = generateHTML(profile.data);
 })
     await writeHTML("index1.html", html);
- 
+ return html;
 } catch (err) {
   console.log(err);
 }
@@ -105,9 +104,15 @@ promptUser()
      getGit(response.username);
   })
   .then(() => {
-    console.log('Success!!'); 
- 
+    console.log('Profile created. Generating PDF...'); 
+    const html = fs.readFileSync('index1.html', 'utf8');
+    pdf.create(html).toFile('developer.pdf', (err, res) => {
+      if (err) {
+        return console.log(err);
+      }
+      console.log(res);
   })
     .catch((err) => {
         console.log(err);
   })
+})

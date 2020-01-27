@@ -1,10 +1,10 @@
 const inquirer = require("inquirer"),
       fs = require("fs"),
       axios = require("axios")
-      puppeteer = require('puppeteer');
+      // puppeteer = require('puppeteer');
 
 const { promisify } = require('util'),
-      writeHTML = promisify(fs.writeFile)
+      writeHTML = promisify(fs.writeFile);
 
 function promptUser() {
   const separator = new inquirer.Separator();  
@@ -24,6 +24,8 @@ function promptUser() {
 }
 
 function generateHTML(profile) {
+  console.log(profile.login);
+  
     return `
     <!DOCTYPE html>
     <html lang="en">
@@ -81,32 +83,31 @@ function generateHTML(profile) {
   }
 
 async function getGit(username) {
-    const clientId = 'ee1c1f5acf97127d2a3c',
+  try {
+    const clientId = '585e16451351f4642f7b',
     clientSecret = 'd2d84e9c5dcc60fee78d17922ef0c3024a7ba996',
     queryUrl = `https://api.github.com/users/${username}?client_id=${clientId}&client_secret=${clientSecret}`;
+    let html;
     await axios.get(queryUrl).then((profile) => {
-//     fs.writeFile("response.txt", response, function(err) {
-//         if (err) {
-//             throw err;
-//         }
-// })
-console.log(profile.data);
+   
 
-return profile.data;
-  })
+    html = generateHTML(profile.data);
+})
+    await writeHTML("index1.html", html);
+ 
+} catch (err) {
+  console.log(err);
+}
 }
 
 promptUser()
     .then((response) => {
-    const profile = getGit(response.username);
-    console.log(profile);
-    const html = generateHTML(profile);
-    return writeHTML("index1.html", html);
+     getGit(response.username);
   })
   .then(() => {
-      console.log('Success!!');
-      
+    console.log('Success!!'); 
+ 
   })
     .catch((err) => {
         console.log(err);
-  });
+  })

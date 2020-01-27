@@ -39,7 +39,7 @@ function generateHTML(profile) {
     </head>
     <body>
     
-        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <nav class="navbar navbar-expand-lg navbar-light bg-light" id= "pageHeader">
             <a class="navbar-brand" href="#">${profile.login}</a>
               
           </nav>
@@ -50,7 +50,7 @@ function generateHTML(profile) {
                 <h3 class="card-header">${profile.name}</h3>
                 <div class="card-body">
                   <h5 class="card-title">${profile.company}</h5>
-                 <span> <h6 class="card-subtitle text-muted">Email: </h6><p>${profile.email}</p></span>
+                 <h6 class="card-subtitle text-muted">Email: </h6><p>${profile.email}</p>
                 </div>
                 <div class="row"> 
                     <div class="col">
@@ -92,8 +92,14 @@ async function getGit(username) {
    
     html = generateHTML(profile.data);
 })
-    await writeHTML("index1.html", html);
- return html;
+    const options = { base : "https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"}
+    await pdf.create(html, options).toFile('developer.pdf', (err, res) => {
+      if (err) {
+        return console.log(err);
+      }
+      console.log(res, 'Complete!');
+    });
+
 } catch (err) {
   console.log(err);
 }
@@ -103,16 +109,6 @@ promptUser()
     .then((response) => {
      getGit(response.username);
   })
-  .then(() => {
-    console.log('Profile created. Generating PDF...'); 
-    const html = fs.readFileSync('index1.html', 'utf8');
-    pdf.create(html).toFile('developer.pdf', (err, res) => {
-      if (err) {
-        return console.log(err);
-      }
-      console.log(res);
-  })
-    .catch((err) => {
-        console.log(err);
-  })
-})
+   .catch((err) => {
+     console.log(err);
+   })

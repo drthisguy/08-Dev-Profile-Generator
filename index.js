@@ -40,33 +40,33 @@ function generateHTML(profile, color) {
     </head>
     <body>
         <nav class="navbar navbar-expand-lg ${color}-back" id= "pageHeader">
-            <a class="navbar-brand" href="${profile.html_url}">${profile.login}</a>
+            <h3 class="navbar-brand p-3">${profile.login}</h3>
           </nav>
 
           <div class="container">
     
             <div class="card m-5">
-                <h3 class="card-header ${color}-back">${profile.name}</h3>
+                <h2 class="card-header ${color}-back p-2">${profile.name}</h2>
                 <div class="card-body">
                   <h5 class="card-title">${profile.company}</h5>
-                 <h6 class="card-subtitle text-muted">Email: </h6>${profile.email}
+                 <h6 class="card-subtitle text-muted">Email: ${profile.email}
                 </div>
                 <div class="row"> 
                     <div class="col">
-                <img src="${profile.avatar_url}">
-                <div class="card-body">
-                  <p class="card-text">${profile.location}.</p>
-                </div>
+                <span class="bio"><img src="${profile.avatar_url}">
             </div> 
-            <div class="col bio">${profile.bio}</div>
+            <div class="col bio">${profile.bio}</div></span>
+            <div class="card-body">
+            <p class="card-text">${profile.location}.</p>
+          </div>
         </div>
-                <ul class="list-group list-group-flush">
-                  <li class="list-group-item ${color}">GitHub Profile: ${profile.html_url}</li>
-                  <li class="list-group-item ${color}">Blog: ${profile.blog}</li>
-                  <li class="list-group-item ${color}">Public Repos: ${profile.public_repos}</li>
-                  <li class="list-group-item ${color}">Stars: </li>
-                  <li class="list-group-item ${color}">Followers: ${profile.followers}</li>
-                  <li class="list-group-item ${color}">Following: <p id="right">${profile.following}</p></li>
+                <ul class="list-group list-group-flush ${color}">
+                  <li class="list-group-item">GitHub Profile: <p id="right">${profile.html_url}</p></li>
+                  <li class="list-group-item">Blog: <p id="right">${profile.blog}</p></li>
+                  <li class="list-group-item">Public Repos: <p id="right">${profile.public_repos}</p></li>
+                  <li class="list-group-item">Stars: <p id="right"> stars </p></li>
+                  <li class="list-group-item">Followers: <p id="right">${profile.followers}</p></li>
+                  <li class="list-group-item">Following: <p id="right">${profile.following}</p></li>
                 </ul>
               
                 <div class="card-footer">
@@ -93,6 +93,8 @@ async function getGit(answers) {
           clientSecret = 'd2d84e9c5dcc60fee78d17922ef0c3024a7ba996',
           queryUrl = `https://api.github.com/users/${answers.username}?client_id=${clientId}&client_secret=${clientSecret}`,
           color = answers.color.toLowerCase();
+          console.log(color);
+          
     try {
     await axios.get(queryUrl).then( profile => {
    

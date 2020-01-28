@@ -39,7 +39,7 @@ function generateHTML(profile, color) {
         <link rel="stylesheet" href="https://raw.githubusercontent.com/drthisguy/Homework-8/master/assets/css/style.css">
     </head>
     <body>
-        <nav class="navbar navbar-expand-lg navbar-light muted-text text-white" style="background-color: ${color}" id= "pageHeader">
+        <nav class="navbar navbar-expand-lg navbar-light text-muted text-light" id= "pageHeader">
             <a class="navbar-brand" href="${profile.html_url}">${profile.login}</a>
           </nav>
 
@@ -53,12 +53,12 @@ function generateHTML(profile, color) {
                 </div>
                 <div class="row"> 
                     <div class="col">
-                <img style="height: 250px; width: auto; display: block;" src="${profile.avatar_url}">
+                <img "src="${profile.avatar_url}">
                 <div class="card-body">
                   <p class="card-text">${profile.location}.</p>
                 </div>
             </div> 
-            <div class="col" style="color:${color}>${profile.bio}</div>
+            <div class="col bio">${profile.bio}</div>
         </div>
                 <ul class="list-group list-group-flush">
                   <li class="list-group-item">GitHub Profile: ${profile.html_url}</li>
@@ -70,15 +70,21 @@ function generateHTML(profile, color) {
                 </ul>
               
                 <div class="card-footer text-muted">
-                  <a href="${profile.html_url}" class="card-link">Profile link</a>
-                  <a href="${profile.blog}" class="card-link">Blog link</a>
+                <p>Links: </p>
+                  <a href="${profile.html_url}" class="card-link">Profile </a>
+                  <a href="${profile.blog}" class="card-link">Blog</a>
                   <a href="http://maps.google.com/?q=${profile.location}
                   "class="card-link">Location link</a>
                 </div>
               </div>
           </div>
-    </body>
-    </html>`;
+
+          <footer>
+          <p class="copy red-back">Developer Profile <br>&copy; Copyright</p>
+      </footer>
+
+  </body>
+  </html>`;
   }
 
 async function getGit(username) {
@@ -92,8 +98,8 @@ async function getGit(username) {
    
     html = generateHTML(profile.data);
 })
-    await inlineCss(html, { url: ' '})
-    .then( html =>  {  
+    await inlineCss(html, {url:' '})
+    .then( html =>  {
     
     pdf.create(html).toFile('developer.pdf', (err, res) => {
       if (err) {

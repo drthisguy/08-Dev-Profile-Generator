@@ -1,7 +1,8 @@
 const inquirer = require("inquirer"),
       fs = require("fs"),
       axios = require("axios")
-      pdf = require('html-pdf');
+      pdf = require('html-pdf'),
+      inlineCss = require('inline-css');
 
 const { promisify } = require('util'),
       writeHTML = promisify(fs.writeFile);
@@ -34,8 +35,8 @@ function generateHTML(profile) {
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta http-equiv="X-UA-Compatible" content="ie=edge">
         <title>Developer Profile</title>
-        <link rel="stylesheet" href="assets/css/bootstrap.min.css">
-        <link rel="stylesheet" href="assets/css/style.css">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+        
     </head>
     <body>
     
@@ -54,7 +55,7 @@ function generateHTML(profile) {
                 </div>
                 <div class="row"> 
                     <div class="col">
-                <img style="height: 300px; width: 100%; display: block;" src="${profile.avatar_url}">
+                <img style="height: 250px; width: auto; display: block;" src="${profile.avatar_url}">
                 <div class="card-body">
                   <p class="card-text">${profile.location}.</p>
                 </div>
@@ -83,24 +84,27 @@ function generateHTML(profile) {
   }
 
 async function getGit(username) {
-  try {
-    const clientId = '585e16451351f4642f7b',
-    clientSecret = 'd2d84e9c5dcc60fee78d17922ef0c3024a7ba996',
-    queryUrl = `https://api.github.com/users/${username}?client_id=${clientId}&client_secret=${clientSecret}`;
     let html;
-    await axios.get(queryUrl).then((profile) => {
+    const clientId = '585e16451351f4642f7b',
+          clientSecret = 'd2d84e9c5dcc60fee78d17922ef0c3024a7ba996',
+          queryUrl = `https://api.github.com/users/${username}?client_id=${clientId}&client_secret=${clientSecret}`;
+
+    try {
+    await axios.get(queryUrl).then( profile => {
    
     html = generateHTML(profile.data);
 })
-    const options = { base : "https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"}
-    await pdf.create(html, options).toFile('developer.pdf', (err, res) => {
+    await inlineCss(html, { url: ' '})
+    .then( html =>  {  
+    
+    pdf.create(html).toFile('developer.pdf', (err, res) => {
       if (err) {
         return console.log(err);
       }
       console.log(res, 'Complete!');
     });
 
-} catch (err) {
+  });} catch (err) {
   console.log(err);
 }
 }

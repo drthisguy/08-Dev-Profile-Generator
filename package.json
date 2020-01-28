@@ -19,6 +19,7 @@
   "dependencies": {
     "axios": "^0.19.2",
     "html-pdf": "^2.2.0",
+    "inline-css": "^2.6.2",
     "inquirer": "^7.0.4"
   }
 }

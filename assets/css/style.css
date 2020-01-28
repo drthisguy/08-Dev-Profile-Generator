@@ -3,10 +3,6 @@ body {
     display: flex; flex-direction: column; /*for the flex container*/
     height: 100vh;  /*flex container*/
 }
-.red-back {
-    background-color: red;
-    color: white;
-}
 
 .navbar-brand{
     color :white
@@ -20,8 +16,62 @@ body {
     max-width:  960px;
     display: inline-block;
     background-color: white;
-    border-color: #dddddd;
-    margin-top: 40px;
+    margin-top: 10px;
+}
+
+.red-back {
+    background-color: #ce0e2d;
+    color: white;
+}
+
+ul.red {
+    border: 1pt solid #ce0e2d 
+}
+
+
+.blue-back {
+    background-color: #006699;
+    color: white;
+}
+
+ul.blue {
+    border: 1pt solid #006699 
+}
+
+.green-back {
+    background-color: #71A83A;
+    color: white;
+}
+
+ul.green {
+    border: 1pt solid #71A83A 
+}
+
+.yellow-back {
+    background-color: #F9D500;
+    color: white;
+}
+
+ul.yellow {
+    border: 1pt solid #F9D500 
+}
+
+.pink-back {
+    background-color: #FFC0CB;
+    color: white;
+}
+
+ul.pink {
+    border: 1pt solid #FFC0CB 
+}
+
+.purple-back {
+    background-color: #93358D;
+    color: white;
+}
+
+ul.purple {
+    border: 1pt solid #93358D 
 }
 
 img {
@@ -29,12 +79,22 @@ img {
     width: auto;
     margin: 15px;
 }
+
 .bio {
     font-size: 180%;
     text-align: left;
     display: inline;
     margin: 15px;
     font-family: 'Arial', 'Helvetica Neue', Helvetica, sans-serif;
+}
+
+#right {
+    float: right;
+}
+.card-link {
+    text-decoration: underline;
+    align-self: center;
+    margin: 0 20px 0 20px;
 }
 
  /* footer */
@@ -44,8 +104,4 @@ img {
     height: 75px;
     text-align: center;
     flex-shrink: 0; /*for the flex container*/
-}
-
-li.red {
-    border-bottom: 1pt solid red !important;
 }

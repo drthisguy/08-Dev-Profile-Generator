@@ -19,7 +19,7 @@ function promptUser() {
     type: "list",
     name: "color",
     message: "Which is your favorite color?",
-    choices: ["Grey", separator, "Red", separator,"blue", separator, "Green", separator, "Purple"]
+    choices: ["Red", separator,"blue", separator, "Green", separator, "Yellow", separator, "Pink", separator, "Purple"]
     }
   ]);
 }
@@ -53,7 +53,7 @@ function generateHTML(profile, color) {
                 </div>
                 <div class="row"> 
                     <div class="col">
-                <img "src="${profile.avatar_url}">
+                <img src="${profile.avatar_url}">
                 <div class="card-body">
                   <p class="card-text">${profile.location}.</p>
                 </div>
@@ -66,10 +66,10 @@ function generateHTML(profile, color) {
                   <li class="list-group-item ${color}">Public Repos: ${profile.public_repos}</li>
                   <li class="list-group-item ${color}">Stars: </li>
                   <li class="list-group-item ${color}">Followers: ${profile.followers}</li>
-                  <li class="list-group-item ${color}">Following: ${profile.following}</li>
+                  <li class="list-group-item ${color}">Following: <p id="right">${profile.following}</p></li>
                 </ul>
               
-                <div class="card-footer text-muted">
+                <div class="card-footer">
                 <p>Links: </p>
                   <a href="${profile.html_url}" class="card-link">Profile </a>
                   <a href="${profile.blog}" class="card-link">Blog</a>
@@ -87,12 +87,12 @@ function generateHTML(profile, color) {
   </html>`;
   }
 
-async function getGit(username) {
+async function getGit(answers) {
     let html;
     const clientId = '585e16451351f4642f7b',
           clientSecret = 'd2d84e9c5dcc60fee78d17922ef0c3024a7ba996',
-          queryUrl = `https://api.github.com/users/${username}?client_id=${clientId}&client_secret=${clientSecret}`,
-          color = 'red';
+          queryUrl = `https://api.github.com/users/${answers.username}?client_id=${clientId}&client_secret=${clientSecret}`,
+          color = answers.color.toLowerCase();
     try {
     await axios.get(queryUrl).then( profile => {
    
@@ -115,7 +115,7 @@ async function getGit(username) {
 
 promptUser()
     .then((response) => {
-     getGit(response.username);
+     getGit(response);
   })
    .catch((err) => {
      console.log(err);

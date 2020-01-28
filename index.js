@@ -24,7 +24,7 @@ function promptUser() {
   ]);
 }
 
-function generateHTML(profile) {
+function generateHTML(profile, color) {
   console.log(profile.login);
   
     return `
@@ -36,13 +36,11 @@ function generateHTML(profile) {
         <meta http-equiv="X-UA-Compatible" content="ie=edge">
         <title>Developer Profile</title>
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-        
+        <link rel="stylesheet" href="https://raw.githubusercontent.com/drthisguy/Homework-8/master/assets/css/style.css">
     </head>
     <body>
-    
-        <nav class="navbar navbar-expand-lg navbar-light bg-light" id= "pageHeader">
-            <a class="navbar-brand" href="#">${profile.login}</a>
-              
+        <nav class="navbar navbar-expand-lg navbar-light muted-text text-white" style="background-color: ${color}" id= "pageHeader">
+            <a class="navbar-brand" href="${profile.html_url}">${profile.login}</a>
           </nav>
 
           <div class="container">
@@ -51,7 +49,7 @@ function generateHTML(profile) {
                 <h3 class="card-header">${profile.name}</h3>
                 <div class="card-body">
                   <h5 class="card-title">${profile.company}</h5>
-                 <h6 class="card-subtitle text-muted">Email: </h6><p>${profile.email}</p>
+                 <h6 class="card-subtitle text-muted">Email: </h6>${profile.email}
                 </div>
                 <div class="row"> 
                     <div class="col">
@@ -60,7 +58,7 @@ function generateHTML(profile) {
                   <p class="card-text">${profile.location}.</p>
                 </div>
             </div> 
-            <div class="col">${profile.bio}</div>
+            <div class="col" style="color:${color}>${profile.bio}</div>
         </div>
                 <ul class="list-group list-group-flush">
                   <li class="list-group-item">GitHub Profile: ${profile.html_url}</li>

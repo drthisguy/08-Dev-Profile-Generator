@@ -39,14 +39,14 @@ function generateHTML(profile, color) {
         <link rel="stylesheet" href="https://raw.githubusercontent.com/drthisguy/Homework-8/master/assets/css/style.css">
     </head>
     <body>
-        <nav class="navbar navbar-expand-lg navbar-light text-muted text-light" id= "pageHeader">
+        <nav class="navbar navbar-expand-lg ${color}-back" id= "pageHeader">
             <a class="navbar-brand" href="${profile.html_url}">${profile.login}</a>
           </nav>
 
           <div class="container">
     
             <div class="card m-5">
-                <h3 class="card-header">${profile.name}</h3>
+                <h3 class="card-header ${color}-back">${profile.name}</h3>
                 <div class="card-body">
                   <h5 class="card-title">${profile.company}</h5>
                  <h6 class="card-subtitle text-muted">Email: </h6>${profile.email}
@@ -61,12 +61,12 @@ function generateHTML(profile, color) {
             <div class="col bio">${profile.bio}</div>
         </div>
                 <ul class="list-group list-group-flush">
-                  <li class="list-group-item">GitHub Profile: ${profile.html_url}</li>
-                  <li class="list-group-item">Blog: ${profile.blog}</li>
-                  <li class="list-group-item">Public Repos: ${profile.public_repos}</li>
-                  <li class="list-group-item">Stars: </li>
-                  <li class="list-group-item">Followers: ${profile.followers}</li>
-                  <li class="list-group-item">Following: ${profile.following}</li>
+                  <li class="list-group-item ${color}">GitHub Profile: ${profile.html_url}</li>
+                  <li class="list-group-item ${color}">Blog: ${profile.blog}</li>
+                  <li class="list-group-item ${color}">Public Repos: ${profile.public_repos}</li>
+                  <li class="list-group-item ${color}">Stars: </li>
+                  <li class="list-group-item ${color}">Followers: ${profile.followers}</li>
+                  <li class="list-group-item ${color}">Following: ${profile.following}</li>
                 </ul>
               
                 <div class="card-footer text-muted">
@@ -80,7 +80,7 @@ function generateHTML(profile, color) {
           </div>
 
           <footer>
-          <p class="copy red-back">Developer Profile <br>&copy; Copyright</p>
+          <p class="${color}-back">Developer Profile <br>&copy; Copyright</p>
       </footer>
 
   </body>
@@ -91,12 +91,12 @@ async function getGit(username) {
     let html;
     const clientId = '585e16451351f4642f7b',
           clientSecret = 'd2d84e9c5dcc60fee78d17922ef0c3024a7ba996',
-          queryUrl = `https://api.github.com/users/${username}?client_id=${clientId}&client_secret=${clientSecret}`;
-
+          queryUrl = `https://api.github.com/users/${username}?client_id=${clientId}&client_secret=${clientSecret}`,
+          color = 'red';
     try {
     await axios.get(queryUrl).then( profile => {
    
-    html = generateHTML(profile.data);
+    html = generateHTML(profile.data, color);
 })
     await inlineCss(html, {url:' '})
     .then( html =>  {

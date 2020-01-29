@@ -14,7 +14,7 @@ body {
 }
 
 h3 {
-    padding: 1rem !important;
+    padding: 1.5rem !important;
 }
 
 .container {
@@ -32,7 +32,7 @@ img {
 
 .bio {
     font-size: 140%;
-    text-align: center;
+    text-align: left;
     display: inline;
     margin: 15px;
     font-family: 'Arial', 'Helvetica Neue', Helvetica, sans-serif;
@@ -52,7 +52,9 @@ img {
     text-align: center;
     flex-shrink: 0; /*for the flex container*/
 }
-
+#right {
+    float: right;
+}
 
 .red-back {
     background-color: #ce0e2d;

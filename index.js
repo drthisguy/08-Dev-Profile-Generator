@@ -35,7 +35,7 @@ async function getGit(answers) {
 
    await inlineCss(html, {url:' '}).then( html =>  {
 
-  pdf.create(html).toFile('developer.pdf', (err, res) => {
+  pdf.create(html).toFile(`${answers.username}.pdf`, (err, res) => {
     if (err) {
       return console.log(err);
     }

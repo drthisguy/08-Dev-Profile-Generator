@@ -4,7 +4,7 @@ const inquirer = require("inquirer"),
       inlineCss = require('inline-css'),
       cliProgress = require('cli-progress');
 
-//IIFE used for immediate invocation. 
+//IIFE used for immediate invocation & why not? 
 (() => {
   const separator = new inquirer.Separator(),
         ending = new inquirer.Separator('******END******');
@@ -51,8 +51,29 @@ async function getGit(answers) {
   }
 }
 
+function progBar() {
+  const bar = new cliProgress.SingleBar({ 
+    format: "progress [{bar}] {percentage}%",
+    barCompleteChar: '\u001b',
+    barIncompleteChar: '\u001b',
+    stopOnComplete: true,
+    clearOnComplete: false,
+    hideCursor: true,
+  },cliProgress.Presets.shades_classic);
+  bar.start(100, 0);
+
+  (function runBar() {
+   const timer = setInterval(() => {bar.increment(); 
+    if (bar.isActive === false) {
+      clearInterval(timer);
+    }
+  }, 20)}
+  )()
+ }
+
 function generateHTML(profile, color) {
   console.log('Generating profile pdf...');
+  progBar();
     return `
     <!DOCTYPE html>
     <html lang="en">

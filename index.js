@@ -26,27 +26,27 @@ function promptUser() {
 async function getGit(answers) {
   let html;
   const clientId = '585e16451351f4642f7b',
-        clientSecret = 'd2d84e9c5dcc60fee78d17922ef0c3024a7ba996',
+        clientSecret = '0d1a343a86da70defdf0bd97641c990967b08cd0',
         queryUrl = `https://api.github.com/users/${answers.username}?client_id=${clientId}&client_secret=${clientSecret}`,
-        color = answers.color.toLowerCase();
-        // options = {"height": "11in", "width": "8in", "base": "https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"};
-     
+        config = {headers: {'Authorization': `token ${clientSecret}`}}, //needed for some of the response data like emails, etc.
+        color = answers.color.toLowerCase();     
         
   try {
-   html = await axios.get(queryUrl).then( profile => generateHTML(profile.data, color));
+   html = await axios.get(queryUrl, config).then( profile => generateHTML(profile.data, color));
 
-  await inlineCss(html, {url:' '}).then( html =>  {
+   await inlineCss(html, {url:' '}).then( html =>  {
 
   pdf.create(html).toFile('developer.pdf', (err, res) => {
     if (err) {
       return console.log(err);
     }
-    console.log(`Writing output file to:\n`, res, `\nSuccess!!`);
-  });
-});
-} catch (err) {
-console.log(err);
-}
+    const { filename } = res;
+    console.log(`Writing output file to:\n`, filename, `\n\nSuccess!`);
+  })
+})
+  } catch (err) {
+  console.log(err);
+  }
 }
 
 promptUser().then( response => {
@@ -56,9 +56,9 @@ promptUser().then( response => {
    console.log(err);
  })
 
-
 function generateHTML(profile, color) {
   console.log('Generating profile pdf...');
+  console.log(profile.email);
   
     return `
     <!DOCTYPE html>
@@ -88,7 +88,7 @@ function generateHTML(profile, color) {
                 <p class="bio"> ${profile.bio}</p></div></div>
             <div class="card-body">
             <br><br>
-            <hr class="${color}>
+            <hr id="${color}">
             <p class="locale">${profile.location}.</p>
           </div>
           <br>

@@ -80,7 +80,7 @@ ul.red {
     border: 1pt solid #ce0e2d !important;
 }
 
-hr.red {
+hr#red {
     border: 1px solid #ce0e2d !important;
 }
 
@@ -97,7 +97,7 @@ ul.blue {
     border: 1pt solid #006699 !important;
 }
 
-hr.blue {
+hr#blue {
     border: 1px solid #006699 !important;
 }
 
@@ -114,7 +114,7 @@ ul.green {
     border: 1pt solid #71A83A !important;
 }
 
-hr.green {
+hr#green {
     border: 1px solid #71A83A !important;
 }
 
@@ -132,7 +132,7 @@ ul.yellow {
 }
 
 
-hr.yellow {
+hr#yellow {
     border: 1px solid #F9D500 !important;
 }
 
@@ -149,7 +149,7 @@ ul.pink {
     border: 1pt solid #FFC0CB !important;
 }
 
-hr.pink {
+hr#pink {
     border: 1px solid #FFC0CB !important;
 }
 
@@ -166,6 +166,6 @@ ul.purple {
     border: 1pt solid #93358D !important;
 }
 
-hr.purple {
+hr#purple {
     border: 1px solid #93358D !important;
 }

@@ -1,10 +1,9 @@
 const inquirer = require("inquirer"),
-      fs = require("fs"),
       axios = require("axios")
       pdf = require('html-pdf'),
       inlineCss = require('inline-css');
 
-function promptUser() {
+(function promptUser() {
   const separator = new inquirer.Separator(),
         ending = new inquirer.Separator('******END******');
   return inquirer.prompt([
@@ -20,12 +19,17 @@ function promptUser() {
     choices: ["Red", separator,"blue", separator, "Green", separator, "Yellow", separator, "Pink", separator, "Purple", ending]
     }
   ]);
-}
+})().then( response => {
+  getGit(response);
+})
+.catch((err) => {
+  console.log(err);
+}) 
 
 async function getGit(answers) {
   let html;
   const clientId = '585e16451351f4642f7b',
-        clientSecret = '0d1a343a86da70defdf0bd97641c990967b08cd0',
+        clientSecret = 'd3871932133c5a9fa1ece1864b1995f30e92ab98',
         queryUrl = `https://api.github.com/users/${answers.username}?client_id=${clientId}&client_secret=${clientSecret}`,
         config = {headers: {'Authorization': `token ${clientSecret}`}}, //needed for some of the response data like emails, etc.
         color = answers.color.toLowerCase();     
@@ -48,12 +52,6 @@ async function getGit(answers) {
   }
 }
 
-promptUser().then( response => {
-   getGit(response);
-})
- .catch((err) => {
-   console.log(err);
- })
 
 function generateHTML(profile, color) {
   console.log('Generating profile pdf...');

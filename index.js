@@ -1,9 +1,11 @@
 const inquirer = require("inquirer"),
       axios = require("axios")
       pdf = require('html-pdf'),
-      inlineCss = require('inline-css');
+      inlineCss = require('inline-css'),
+      cliProgress = require('cli-progress');
 
-(function promptUser() {
+//IIFE used for immediate invocation. 
+(() => {
   const separator = new inquirer.Separator(),
         ending = new inquirer.Separator('******END******');
   return inquirer.prompt([
@@ -18,14 +20,11 @@ const inquirer = require("inquirer"),
     message: "Which is your favorite color?",
     choices: ["Red", separator,"blue", separator, "Green", separator, "Yellow", separator, "Pink", separator, "Purple", ending]
     }
-  ]);
-})().then( response => {
-  getGit(response);
-})
-.catch((err) => {
-  console.log(err);
-}) 
+  ])
+})().then( response => getGit(response))
+.catch( err => console.log(err)) 
 
+//Main event
 async function getGit(answers) {
   let html;
   const clientId = '585e16451351f4642f7b',
@@ -48,15 +47,12 @@ async function getGit(answers) {
   })
 })
   } catch (err) {
-  console.log(err);
+    console.log(err);
   }
 }
 
-
 function generateHTML(profile, color) {
   console.log('Generating profile pdf...');
-  console.log(profile.email);
-  
     return `
     <!DOCTYPE html>
     <html lang="en">

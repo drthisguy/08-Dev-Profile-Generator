@@ -4,11 +4,6 @@ body {
     height: 100vh;  /*flex container*/
 }
 
-.navbar-brand {
-    color :white;
-    height : 30px
-}
-
 .flex-container {
     flex: 1 0 auto;
     text-align: center;
@@ -18,9 +13,12 @@ nav {
     padding: 1.5rem !important;
 }
 
+.user {
+    margin-left: 180pt;
+    color: white;
+}
 .container {
     max-width:  960px;
-    display: inline-block;
     background-color: white;
     margin-top: 10px;
 }
@@ -38,6 +36,15 @@ img {
     font-family: 'Arial', 'Helvetica Neue', Helvetica, sans-serif;
 }
 
+.locale {
+    margin-left: 15px;
+}
+
+.card-footer {
+    text-align: center;
+    background-color: rgba(0,0,0,0.03);
+}
+
 .card-link {
     text-decoration: underline;
     text-align: center;
@@ -51,8 +58,7 @@ img {
  /* footer */
  footer {
     width: 100%;
-    margin-top: 75px;
-    height: 75px;
+    margin-top: 50px;
     text-align: center;
     flex-shrink: 0; /*for the flex container*/
 }
@@ -61,13 +67,25 @@ img {
     float: right;
 }
 
+a.red {
+    color: #ce0e2d;
+}
+
 .red-back {
     background-color: #ce0e2d;
     color: white;
 }
 
 ul.red {
-    border: 1pt solid #ce0e2d 
+    border: 1pt solid #ce0e2d !important;
+}
+
+hr.red {
+    border: 1px solid #ce0e2d;
+}
+
+a.blue {
+    color: #006699;
 }
 
 .blue-back {
@@ -76,7 +94,15 @@ ul.red {
 }
 
 ul.blue {
-    border: 1pt solid #006699 
+    border: 1pt solid #006699 !important;
+}
+
+hr.blue {
+    border: 1px solid #006699;
+}
+
+a.green {
+    color: #71A83A;
 }
 
 .green-back {
@@ -85,7 +111,15 @@ ul.blue {
 }
 
 ul.green {
-    border: 1pt solid #71A83A 
+    border: 1pt solid #71A83A !important;
+}
+
+hr.green {
+    border: 1px solid #71A83A;
+}
+
+a.yellow {
+    color: #F9D500;
 }
 
 .yellow-back {
@@ -94,7 +128,16 @@ ul.green {
 }
 
 ul.yellow {
-    border: 1pt solid #F9D500 
+    border: 1pt solid #F9D500 !important;
+}
+
+
+hr.yellow {
+    border: 1px solid #F9D500;
+}
+
+a.pink {
+    color: #FFC0CB;
 }
 
 .pink-back {
@@ -103,7 +146,15 @@ ul.yellow {
 }
 
 ul.pink {
-    border: 1pt solid #FFC0CB 
+    border: 1pt solid #FFC0CB !important;
+}
+
+hr.pink {
+    border: 1px solid #FFC0CB;
+}
+
+a.purple {
+    color: #93358D;
 }
 
 .purple-back {
@@ -112,5 +163,9 @@ ul.pink {
 }
 
 ul.purple {
-    border: 1pt solid #93358D 
+    border: 1pt solid #93358D !important;
+}
+
+hr.purple {
+    border: 1px solid #93358D;
 }

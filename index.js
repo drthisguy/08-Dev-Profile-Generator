@@ -31,6 +31,7 @@ async function getGit(answers) {
         clientSecret = 'd2d84e9c5dcc60fee78d17922ef0c3024a7ba996',
         queryUrl = `https://api.github.com/users/${answers.username}?client_id=${clientId}&client_secret=${clientSecret}`,
         color = answers.color.toLowerCase();
+        options = {"height": "11in", "width": "8in", "base": "https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"};
      
         
   try {
@@ -41,7 +42,7 @@ async function getGit(answers) {
   await inlineCss(html, {url:' '})
   .then( html =>  {
   
-  pdf.create(html).toFile('developer.pdf', (err, res) => {
+  pdf.create(html, options).toFile('developer.pdf', (err, res) => {
     if (err) {
       return console.log(err);
     }
@@ -73,30 +74,30 @@ function generateHTML(profile, color) {
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta http-equiv="X-UA-Compatible" content="ie=edge">
         <title>Developer Profile</title>
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootswatch/4.4.1/lux/bootstrap.min.css">
         <link rel="stylesheet" href="https://raw.githubusercontent.com/drthisguy/Homework-8/master/assets/css/style.css">
     </head>
     <body>
         <nav class="navbar ${color}-back">
-            <h3 class="navbar-brand">${profile.login}</h3>
+            <h3 class="user">${profile.login}</h3>
           </nav>
 
-          <div class="container">
-    
-            <div class="card m-5">
+            <div class="card">
                 <h2 class="card-header ${color}-back">${profile.name}</h2>
                 <div class="card-body">
                   <h5 class="card-title">${profile.company}</h5>
                  <h6 class="card-subtitle text-muted">Email: ${profile.email}
                 </div>
                 
-                <p class="bio"> <img src=${profile.avatar_url}">
-            ${profile.bio}</p>
-
+                 <div class="row">
+                <div class="col"><img src=${profile.avatar_url}"><div class="col">
+                <p class="bio"> ${profile.bio}</p></div></div>
             <div class="card-body">
-            <p class="card-text">${profile.location}.</p>
+            <br><br>
+            <hr class="${color}>
+            <p class="locale">${profile.location}.</p>
           </div>
-        </>
+          <br>
                 <ul class="list-group list-group-flush ${color}">
                   <li class="list-group-item">GitHub Profile: <p id="right">${profile.html_url}</p></li>
                   <li class="list-group-item">Blog: <p id="right">${profile.blog}</p></li>
@@ -108,16 +109,16 @@ function generateHTML(profile, color) {
               
                 <div class="card-footer">
                 <p>Links: </p>
-                  <a href="${profile.html_url}" class="card-link">Profile </a>
-                  <a href="${profile.blog}" class="card-link">Blog</a>
+                  <a href="${profile.html_url}" class="card-link ${color}">Profile </a>
+                  <a href="${profile.blog}" class="card-link ${color}">Blog</a>
                   <a href="http://maps.google.com/?q=${profile.location}
-                  "class="card-link">Location link</a>
+                  "class="card-link ${color}">Location link</a>
                 </div>
               </div>
-          </div>
-
-          <footer>
-          <p class="${color}-back">Developer Profile <br>&copy; Copyright</p>
+          
+          <br>
+          <footer class="${color}-back">
+          <p>Developer Profile <br>&copy; Copyright</p>
       </footer>
 
   </body>

@@ -4,11 +4,9 @@ const inquirer = require("inquirer"),
       pdf = require('html-pdf'),
       inlineCss = require('inline-css');
 
-const { promisify } = require('util'),
-      writeHTML = promisify(fs.writeFile);
-
 function promptUser() {
-  const separator = new inquirer.Separator();  
+  const separator = new inquirer.Separator(),
+        ending = new inquirer.Separator('***********');
   return inquirer.prompt([
     {
     type: "input",
@@ -19,7 +17,7 @@ function promptUser() {
     type: "list",
     name: "color",
     message: "Which is your favorite color?",
-    choices: ["Red", separator,"blue", separator, "Green", separator, "Yellow", separator, "Pink", separator, "Purple"]
+    choices: ["Red", separator,"blue", separator, "Green", separator, "Yellow", separator, "Pink", separator, "Purple", ending]
     }
   ]);
 }
@@ -31,31 +29,27 @@ async function getGit(answers) {
         clientSecret = 'd2d84e9c5dcc60fee78d17922ef0c3024a7ba996',
         queryUrl = `https://api.github.com/users/${answers.username}?client_id=${clientId}&client_secret=${clientSecret}`,
         color = answers.color.toLowerCase();
-        options = {"height": "11in", "width": "8in", "base": "https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"};
+        // options = {"height": "11in", "width": "8in", "base": "https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"};
      
         
   try {
-  await axios.get(queryUrl).then( profile => {
- 
-  html = generateHTML(profile.data, color);
-})
-  await inlineCss(html, {url:' '})
-  .then( html =>  {
-  
-  pdf.create(html, options).toFile('developer.pdf', (err, res) => {
+   html = await axios.get(queryUrl).then( profile => generateHTML(profile.data, color));
+
+  await inlineCss(html, {url:' '}).then( html =>  {
+
+  pdf.create(html).toFile('developer.pdf', (err, res) => {
     if (err) {
       return console.log(err);
     }
-    console.log(res, 'Complete!');
+    console.log(`Writing output file to:\n`, res, `\nSuccess!!`);
   });
-
-});} catch (err) {
+});
+} catch (err) {
 console.log(err);
 }
 }
 
-promptUser()
-  .then((response) => {
+promptUser().then( response => {
    getGit(response);
 })
  .catch((err) => {
@@ -64,7 +58,7 @@ promptUser()
 
 
 function generateHTML(profile, color) {
-  console.log(profile.login);
+  console.log('Generating profile pdf...');
   
     return `
     <!DOCTYPE html>
@@ -82,7 +76,7 @@ function generateHTML(profile, color) {
             <h3 class="user">${profile.login}</h3>
           </nav>
 
-            <div class="card">
+            <div class="card mt-3">
                 <h2 class="card-header ${color}-back">${profile.name}</h2>
                 <div class="card-body">
                   <h5 class="card-title">${profile.company}</h5>
@@ -107,8 +101,8 @@ function generateHTML(profile, color) {
                   <li class="list-group-item">Following: <p id="right">${profile.following}</p></li>
                 </ul>
               
+                <p class="ml-4">Links:</p>
                 <div class="card-footer">
-                <p>Links: </p>
                   <a href="${profile.html_url}" class="card-link ${color}">Profile </a>
                   <a href="${profile.blog}" class="card-link ${color}">Blog</a>
                   <a href="http://maps.google.com/?q=${profile.location}

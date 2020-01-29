@@ -42,7 +42,7 @@ img {
 
 .card-footer {
     text-align: center;
-    background-color: rgba(0,0,0,0.03);
+    background-color: rgba(0,0,0,0.06);
 }
 
 .card-link {
@@ -81,7 +81,7 @@ ul.red {
 }
 
 hr.red {
-    border: 1px solid #ce0e2d;
+    border: 1px solid #ce0e2d !important;
 }
 
 a.blue {
@@ -98,7 +98,7 @@ ul.blue {
 }
 
 hr.blue {
-    border: 1px solid #006699;
+    border: 1px solid #006699 !important;
 }
 
 a.green {
@@ -115,7 +115,7 @@ ul.green {
 }
 
 hr.green {
-    border: 1px solid #71A83A;
+    border: 1px solid #71A83A !important;
 }
 
 a.yellow {
@@ -133,7 +133,7 @@ ul.yellow {
 
 
 hr.yellow {
-    border: 1px solid #F9D500;
+    border: 1px solid #F9D500 !important;
 }
 
 a.pink {
@@ -150,7 +150,7 @@ ul.pink {
 }
 
 hr.pink {
-    border: 1px solid #FFC0CB;
+    border: 1px solid #FFC0CB !important;
 }
 
 a.purple {
@@ -167,5 +167,5 @@ ul.purple {
 }
 
 hr.purple {
-    border: 1px solid #93358D;
+    border: 1px solid #93358D !important;
 }

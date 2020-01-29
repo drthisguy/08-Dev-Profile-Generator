@@ -24,6 +24,44 @@ function promptUser() {
   ]);
 }
 
+
+async function getGit(answers) {
+  let html;
+  const clientId = '585e16451351f4642f7b',
+        clientSecret = 'd2d84e9c5dcc60fee78d17922ef0c3024a7ba996',
+        queryUrl = `https://api.github.com/users/${answers.username}?client_id=${clientId}&client_secret=${clientSecret}`,
+        color = answers.color.toLowerCase();
+     
+        
+  try {
+  await axios.get(queryUrl).then( profile => {
+ 
+  html = generateHTML(profile.data, color);
+})
+  await inlineCss(html, {url:' '})
+  .then( html =>  {
+  
+  pdf.create(html).toFile('developer.pdf', (err, res) => {
+    if (err) {
+      return console.log(err);
+    }
+    console.log(res, 'Complete!');
+  });
+
+});} catch (err) {
+console.log(err);
+}
+}
+
+promptUser()
+  .then((response) => {
+   getGit(response);
+})
+ .catch((err) => {
+   console.log(err);
+ })
+
+
 function generateHTML(profile, color) {
   console.log(profile.login);
   
@@ -39,7 +77,7 @@ function generateHTML(profile, color) {
         <link rel="stylesheet" href="https://raw.githubusercontent.com/drthisguy/Homework-8/master/assets/css/style.css">
     </head>
     <body>
-        <nav class="navbar navbar-expand-lg ${color}-back" id= "pageHeader">
+        <nav class="navbar navbar-expand-lg ${color}-back">
             <h3 class="navbar-brand p-3">${profile.login}</h3>
           </nav>
 
@@ -53,9 +91,9 @@ function generateHTML(profile, color) {
                 </div>
                 <div class="row"> 
                     <div class="col">
-                <span class="bio"><img src="${profile.avatar_url}">
+                <img src="${profile.avatar_url}">
             </div> 
-            <div class="col bio">${profile.bio}</div></span>
+            <div class="col bio">${profile.bio}</div>
             <div class="card-body">
             <p class="card-text">${profile.location}.</p>
           </div>
@@ -86,39 +124,3 @@ function generateHTML(profile, color) {
   </body>
   </html>`;
   }
-
-async function getGit(answers) {
-    let html;
-    const clientId = '585e16451351f4642f7b',
-          clientSecret = 'd2d84e9c5dcc60fee78d17922ef0c3024a7ba996',
-          queryUrl = `https://api.github.com/users/${answers.username}?client_id=${clientId}&client_secret=${clientSecret}`,
-          color = answers.color.toLowerCase();
-          console.log(color);
-          
-    try {
-    await axios.get(queryUrl).then( profile => {
-   
-    html = generateHTML(profile.data, color);
-})
-    await inlineCss(html, {url:' '})
-    .then( html =>  {
-    
-    pdf.create(html).toFile('developer.pdf', (err, res) => {
-      if (err) {
-        return console.log(err);
-      }
-      console.log(res, 'Complete!');
-    });
-
-  });} catch (err) {
-  console.log(err);
-}
-}
-
-promptUser()
-    .then((response) => {
-     getGit(response);
-  })
-   .catch((err) => {
-     console.log(err);
-   })

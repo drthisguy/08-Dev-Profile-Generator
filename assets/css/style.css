@@ -7,11 +7,18 @@ body {
 .navbar-brand{
     color :white
 }
+
 .flex-container {
     flex: 1 0 auto;
     text-align: center;
 }
 
+h3 {
+    padding-bottom: 15px;
+}
+.card-header {
+    padding: 15pt;
+}
 .container {
     max-width:  960px;
     display: inline-block;

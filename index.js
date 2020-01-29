@@ -77,27 +77,26 @@ function generateHTML(profile, color) {
         <link rel="stylesheet" href="https://raw.githubusercontent.com/drthisguy/Homework-8/master/assets/css/style.css">
     </head>
     <body>
-        <nav class="navbar navbar-expand-lg ${color}-back">
-            <h3 class="navbar-brand style="padding: 15pt;"">${profile.login}</h3>
+        <nav class="navbar ${color}-back">
+            <h3 class="navbar-brand">${profile.login}</h3>
           </nav>
 
           <div class="container">
     
             <div class="card m-5">
-                <h2 class="card-header ${color}-back p-2">${profile.name}</h2>
+                <h2 class="card-header ${color}-back">${profile.name}</h2>
                 <div class="card-body">
                   <h5 class="card-title">${profile.company}</h5>
                  <h6 class="card-subtitle text-muted">Email: ${profile.email}
                 </div>
-                <div class="row"> 
-                    <div class="col">
-                <img src="${profile.avatar_url}">
-            </div> 
-            <div style="display:inline"class="col bio">${profile.bio}</div>
+                
+                <p class="bio"> <img style="height: 250px; width:auto"; src=${profile.avatar_url}">
+            ${profile.bio}</p>
+
             <div class="card-body">
             <p class="card-text">${profile.location}.</p>
           </div>
-        </div>
+        </>
                 <ul class="list-group list-group-flush ${color}">
                   <li class="list-group-item">GitHub Profile: <p id="right">${profile.html_url}</p></li>
                   <li class="list-group-item">Blog: <p id="right">${profile.blog}</p></li>

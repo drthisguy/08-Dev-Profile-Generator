@@ -6,7 +6,7 @@ const inquirer = require("inquirer"),
 
 function promptUser() {
   const separator = new inquirer.Separator(),
-        ending = new inquirer.Separator('***********');
+        ending = new inquirer.Separator('******END******');
   return inquirer.prompt([
     {
     type: "input",
@@ -22,7 +22,6 @@ function promptUser() {
   ]);
 }
 
-
 async function getGit(answers) {
   let html;
   const clientId = '585e16451351f4642f7b',
@@ -32,7 +31,7 @@ async function getGit(answers) {
         color = answers.color.toLowerCase();     
         
   try {
-   html = await axios.get(queryUrl, config).then( profile => generateHTML(profile.data, color));
+   html = await axios.get(queryUrl, config).then( profile => generateHTML(profile.data, color))
 
    await inlineCss(html, {url:' '}).then( html =>  {
 
@@ -103,10 +102,11 @@ function generateHTML(profile, color) {
               
                 <p class="ml-4">Links:</p>
                 <div class="card-footer">
-                  <a href="${profile.html_url}" class="card-link ${color}">Profile </a>
-                  <a href="${profile.blog}" class="card-link ${color}">Blog</a>
+                  <a href="${profile.html_url}" target="_blank" class="card-link ${color}">Profile </a>
+                  <a href="mailto:${profile.email}" class="card-link ${color}">Profile </a>
+                  <a href="${profile.blog}" target="_blank" class="card-link ${color}">Blog</a>
                   <a href="http://maps.google.com/?q=${profile.location}
-                  "class="card-link ${color}">Location link</a>
+                  " target="_blank" class="card-link ${color}">Location link</a>
                 </div>
               </div>
           

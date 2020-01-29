@@ -78,7 +78,7 @@ function generateHTML(profile, color) {
     </head>
     <body>
         <nav class="navbar navbar-expand-lg ${color}-back">
-            <h3 class="navbar-brand p-3">${profile.login}</h3>
+            <h3 class="navbar-brand style="padding: 15pt;"">${profile.login}</h3>
           </nav>
 
           <div class="container">
@@ -93,7 +93,7 @@ function generateHTML(profile, color) {
                     <div class="col">
                 <img src="${profile.avatar_url}">
             </div> 
-            <div class="col bio">${profile.bio}</div>
+            <div style="display:inline"class="col bio">${profile.bio}</div>
             <div class="card-body">
             <p class="card-text">${profile.location}.</p>
           </div>

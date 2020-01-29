@@ -90,7 +90,7 @@ function generateHTML(profile, color) {
                  <h6 class="card-subtitle text-muted">Email: ${profile.email}
                 </div>
                 
-                <p class="bio"> <img style="height: 250px; width:auto"; src=${profile.avatar_url}">
+                <p class="bio"> <img src=${profile.avatar_url}">
             ${profile.bio}</p>
 
             <div class="card-body">

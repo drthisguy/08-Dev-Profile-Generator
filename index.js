@@ -4,7 +4,7 @@ const inquirer = require("inquirer"),
       inlineCss = require('inline-css'),
       cliProgress = require('cli-progress');
 
-//IIFE used for immediate invocation & why not? 
+// prompt users: IIFE used for immediate invocation & because.
 (() => {
   const separator = new inquirer.Separator(),
         ending = new inquirer.Separator('******END******');
@@ -24,17 +24,17 @@ const inquirer = require("inquirer"),
 })().then( response => getGit(response))
 .catch( err => console.log(err)) 
 
-//Main event
+// Get profile
 async function getGit(answers) {
   let html;
-  const clientId = '585e16451351f4642f7b',
-        clientSecret = 'd3871932133c5a9fa1ece1864b1995f30e92ab98',
-        queryUrl = `https://api.github.com/users/${answers.username}?client_id=${clientId}&client_secret=${clientSecret}`,
+  const clientSecret = 'b3515f6eef414a001acb3e7a5cfb447d5c599c7e',
+        queryUrl = `https://api.github.com/users/${answers.username}?`,
         config = {headers: {'Authorization': `token ${clientSecret}`}}, //needed for some of the response data like emails, etc.
         color = answers.color.toLowerCase();     
         
   try {
-   html = await axios.get(queryUrl, config).then( profile => generateHTML(profile.data, color))
+   const stars = await getStars(answers.username)
+   html = await axios.get(queryUrl, config).then( profile => generateHTML(profile.data, color, stars));
 
    await inlineCss(html, {url:' '}).then( html =>  {
 
@@ -46,34 +46,50 @@ async function getGit(answers) {
     console.log(`Writing output file to:\n`, filename, `\n\nSuccess!`);
   })
 })
-  } catch (err) {
-    console.log(err);
-  }
+  } catch (err) {console.log(err)}
 }
 
+// Get repo stars
+function getStars(userName) {
+  return new Promise((resolve, reject) => {
+    const queryUrl = `https://api.github.com/users/${userName}/repos?`;
+    let starz = 0;
+
+   axios.get(queryUrl).then( repos => { 
+      repos.data.forEach( repo => {
+        starz += repo.stargazers_count;
+})}); 
+    if (isNaN(starz) || starz < 0) {
+    return reject(Error('Something strange went down!'));
+   
+  } resolve(starz);
+})} 
+
+// run progress bar
 function progBar() {
   const bar = new cliProgress.SingleBar({ 
     format: "progress [{bar}] {percentage}%",
-    barCompleteChar: '\u001b',
-    barIncompleteChar: '\u001b',
     stopOnComplete: true,
     clearOnComplete: false,
     hideCursor: true,
   },cliProgress.Presets.shades_classic);
-  bar.start(100, 0);
 
-  (function runBar() {
-   const timer = setInterval(() => {bar.increment(); 
+  bar.start(80, 0);
+
+  (() => {
+  const timer = setInterval(() => {bar.increment()
     if (bar.isActive === false) {
       clearInterval(timer);
+      bar.stop();
     }
   }, 20)}
   )()
  }
 
-function generateHTML(profile, color) {
+function generateHTML(profile, color, stars) {
   console.log('Generating profile pdf...');
   progBar();
+  
     return `
     <!DOCTYPE html>
     <html lang="en">
@@ -85,7 +101,7 @@ function generateHTML(profile, color) {
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootswatch/4.4.1/lux/bootstrap.min.css">
         <link rel="stylesheet" href="https://raw.githubusercontent.com/drthisguy/Homework-8/master/assets/css/style.css">
     </head>
-    <body>
+    <body d-flex flex-column>
         <nav class="navbar ${color}-back">
             <h3 class="user">${profile.login}</h3>
           </nav>
@@ -106,11 +122,11 @@ function generateHTML(profile, color) {
             <p class="locale">${profile.location}.</p>
           </div>
           <br>
-                <ul class="list-group list-group-flush ${color}">
+                <ul class="list-group list-group-flush ${color} mt-5">
                   <li class="list-group-item">GitHub Profile: <p id="right">${profile.html_url}</p></li>
                   <li class="list-group-item">Blog: <p id="right">${profile.blog}</p></li>
                   <li class="list-group-item">Public Repos: <p id="right">${profile.public_repos}</p></li>
-                  <li class="list-group-item">Stars: <p id="right"> stars </p></li>
+                  <li class="list-group-item">Stars: <p id="right"> ${stars} </p></li>
                   <li class="list-group-item">Followers: <p id="right">${profile.followers}</p></li>
                   <li class="list-group-item">Following: <p id="right">${profile.following}</p></li>
                 </ul>
@@ -118,7 +134,7 @@ function generateHTML(profile, color) {
                 <p class="ml-4">Links:</p>
                 <div class="card-footer">
                   <a href="${profile.html_url}" target="_blank" class="card-link ${color}">Profile </a>
-                  <a href="mailto:${profile.email}" class="card-link ${color}">Profile </a>
+                  <a href="mailto:${profile.email}" class="card-link ${color}">Email </a>
                   <a href="${profile.blog}" target="_blank" class="card-link ${color}">Blog</a>
                   <a href="http://maps.google.com/?q=${profile.location}
                   " target="_blank" class="card-link ${color}">Location link</a>
@@ -132,4 +148,4 @@ function generateHTML(profile, color) {
 
   </body>
   </html>`;
-  }
+}

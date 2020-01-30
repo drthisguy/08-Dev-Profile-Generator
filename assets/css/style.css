@@ -10,11 +10,11 @@ body {
 }
 
 nav {
-    padding: 1.5rem !important;
+    padding: 1rem !important;
 }
 
 .user {
-    margin-left: 180pt;
+    margin-left: 150pt;
     color: white;
 }
 .container {
@@ -58,7 +58,7 @@ img {
  /* footer */
  footer {
     width: 100%;
-    margin-top: 50px;
+    margin-top: 20px;
     text-align: center;
     flex-shrink: 0; /*for the flex container*/
 }

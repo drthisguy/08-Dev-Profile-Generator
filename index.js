@@ -27,9 +27,16 @@ const inquirer = require("inquirer"),
 // Get profile
 async function getGit(answers) {
   let html;
-  const clientSecret = 'b3515f6eef414a001acb3e7a5cfb447d5c599c7e',
+  // const clientSecret = 'd5d2e4e590d9c986f948a9d0ec77fb1a7804c3fd',
         queryUrl = `https://api.github.com/users/${answers.username}?`,
-        config = {headers: {'Authorization': `token ${clientSecret}`}}, //needed for some of the response data like emails, etc.
+        config = {
+          params: 'params',
+          withCredentials: true,
+          auth: {
+            username: 'drthisguy',
+            password: 'Goneph1$in'
+          }
+        }, //needed for some of the response data like emails, etc.
         color = answers.color.toLowerCase();     
         
   try {
@@ -53,17 +60,20 @@ async function getGit(answers) {
 function getStars(userName) {
   return new Promise((resolve, reject) => {
     const queryUrl = `https://api.github.com/users/${userName}/repos?`;
-    let starz = 0;
-
+    let starz;
    axios.get(queryUrl).then( repos => { 
-      repos.data.forEach( repo => {
-        starz += repo.stargazers_count;
-})}); 
+     const stars =[];
+     repos.data.forEach( repo => {
+        stars.push(repo.stargazers_count);
+     })
+     starz = stars.reduce((a, b) => a + b, 0); //sum
+
     if (isNaN(starz) || starz < 0) {
     return reject(Error('Something strange went down!'));
    
-  } resolve(starz);
-})} 
+  }   resolve(starz);
+})});
+} 
 
 // run progress bar
 function progBar() {

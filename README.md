@@ -30,6 +30,9 @@ README.md
 https://github.com/drthisguy/Homework-6
 
 
+# Annimated action gif:
+https://drive.google.com/file/d/19D3eKZbyNhwmPkax93kHabIej2NDCgns/view
+
 # Screen Grabs:
 https://user-images.githubusercontent.com/48693333/74000729-1acea280-4937-11ea-924f-9cb109dd0acb.png
 

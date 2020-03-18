@@ -34,9 +34,8 @@ https://github.com/drthisguy/Homework-6
 ![dev_pdf_generator(optimized)](https://user-images.githubusercontent.com/48693333/77002626-319ee680-6932-11ea-9763-070cc7cce6e5.gif)
 
 # Screen Grabs:
-https://user-images.githubusercontent.com/48693333/74000729-1acea280-4937-11ea-924f-9cb109dd0acb.png
+Update Me!
 
-https://user-images.githubusercontent.com/48693333/74000856-8e70af80-4937-11ea-98cc-c8da6e875cd7.png
 
 # Sources, issues and contact:
 

@@ -30,7 +30,7 @@ README.md
 https://github.com/drthisguy/08-Dev-Profile-Generator
 
 
-# Annimated action gif:
+# Animated action gif:
 ![dev_pdf_generator(optimized)](https://user-images.githubusercontent.com/48693333/77002626-319ee680-6932-11ea-9763-070cc7cce6e5.gif)
 
 # Screen Grabs:

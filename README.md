@@ -27,7 +27,7 @@ README.md
 
 # GitHub Repo:
 
-https://github.com/drthisguy/Homework-6
+https://github.com/drthisguy/08-Dev-Profile-Generator
 
 
 # Annimated action gif:

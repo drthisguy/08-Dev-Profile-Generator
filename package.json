@@ -21,6 +21,7 @@
     "cli-progress": "^3.6.0",
     "html-pdf": "^2.2.0",
     "inline-css": "^2.6.2",
-    "inquirer": "^7.0.4"
+    "inquirer": "^7.0.4",
+    "open": "^7.1.0"
   }
 }

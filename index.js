@@ -1,4 +1,6 @@
 const inquirer = require("inquirer"),
+  path = require("path"),
+  open = require("open"),
   axios = require("axios"),
   pdf = require("html-pdf"),
   inlineCss = require("inline-css"),
@@ -40,11 +42,13 @@ async function getGit(answers) {
   await inlineCss(html, { url: " " }).then(html => {
     pdf.create(html).toFile(`${answers.username}.pdf`, (err, res) => {
       if (err) {
-        return console.log(err);
+        return console.error(err);
       }
 
       const { filename } = res;
       console.log(`Writing output file to:\n`, filename, `\n\nSuccess!`);
+      console.log(`Opening ${answers.username}.pdf...`);
+      open(path.join(process.cwd(), `${answers.username}.pdf`));
     });
   });
 } catch (err) {
@@ -59,14 +63,14 @@ function getStars(userName) {
     const queryUrl = `https://api.github.com/users/${userName}/repos?`;
     let starz;
 
-    axios.get(queryUrl).then(repos => {
+    axios.get(queryUrl).then(({data}) => {
       const stars = [];
-      repos.data.forEach(repo => {
+       data.forEach(repo => {
         stars.push(repo.stargazers_count);
       });
-      starz = stars.reduce((a, b) => a + b, 0); //sum
+      starz = stars.reduce((a, b) => a + b, 0); 
 
-      if (isNaN(starz)) {
+      if (starz !== starz) {
         return reject(Error("Something strange went down!"));
       }
       resolve(starz);

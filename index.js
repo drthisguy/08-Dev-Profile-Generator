@@ -95,7 +95,7 @@ function progBar() {
   (() => {
     const timer = setInterval(() => {
       bar.increment();
-      if (bar.isActive === false) {
+      if (!bar.isActive) {
         clearInterval(timer);
         bar.stop();
       }

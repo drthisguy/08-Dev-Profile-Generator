@@ -3,27 +3,19 @@ Developer Profile Generator
 
 # Abstract
 
-This is a Node CLI application which serves the purpose of generating a PDF for the profiles of software developers from their GitHub accounts.  The program uses the github api after prompting the user for his/her github username.  User's can also choose from six available color themes for their output PDFs.  The PDF will include links to the email, profiles and personal blogs/page.  It also includes the member's photo, bio and more.     
+This is a Node CLI application which serves the purpose of generating a PDF for the profiles of software developers from their GitHub accounts.  The program uses the github api after prompting the user for his/her github username.  User's can also choose from six available color themes for their output PDFs.  The PDF will include links to the email, profiles and personal blogs/pages.  It also includes the member's photo, bio, number of stars and more.     
 
 # file manifest:
 
-app.js
-package.json
-Employee.test.js
-Engineer.test.js
-Intern.test.js
-Manager.test.js
-Employee.js
-Engineer.js
-Intern.js
-Manager.js
-Prompt.js
-Team.js
-templates.js
-LICENSE 
-README.md 
+index.js  
+style.css  
+package.json  
+LICENSE   
+README.md   
 
-
+# To use:
+Clone and from the root directory, type:    
+npm i && npm start
 
 # GitHub Repo:
 
@@ -39,15 +31,15 @@ Update Me!
 
 # Sources, issues and contact:
 
-Contact: page.c.tyler@gmail.com
+Contact: page.c.tyler@gmail.com   
 
-No known issues.  Feel free to email me if there are any found.
+No known issues.  Feel free to email me if there are any found.  
 
-sources:
+# Sources:
 
-https://developer.mozilla.org, 
-google.com 
-npm docs
-stackoverflow.com
-bootswatch.com
-https://validator.w3.org/nu
+https://developer.mozilla.org,   
+google.com   
+npm docs  
+stackoverflow.com  
+bootswatch.com  
+https://validator.w3.org/nu  

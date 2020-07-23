@@ -4,7 +4,7 @@ const inquirer = require("inquirer"),
   inlineCss = require("inline-css"),
   cliProgress = require("cli-progress");
 
-// prompt users: IIFE used for immediate invocation & because.
+// prompt users: 
 (() => {
   const separator = new inquirer.Separator(),
         ending = new inquirer.Separator('******END******');
@@ -29,13 +29,12 @@ const inquirer = require("inquirer"),
 async function getGit(answers) {
   let html;
   const queryUrl = `https://api.github.com/users/${answers.username}?`,
-        config = {params: 'params', withCredentials: true, auth: {username: 'drthisguy', password:'Goneph1$in'}}, //needed for some of the response data like email addy, clientSecret ID didn't work for very long. 
         color = answers.color.toLowerCase(),
         stars = await getStars(answers.username);
 
   try {
   html = await axios
-    .get(queryUrl, config)
+    .get(queryUrl)
     .then(profile => generateHTML(profile.data, color, stars));
 
   await inlineCss(html, { url: " " }).then(html => {
@@ -126,7 +125,7 @@ function generateHTML(profile, color, stars) {
           <h2 class="card-header ${color}-back">${profile.name}</h2>
           <div class="card-body">
               <h5 class="card-title">${profile.company}</h5>
-              <h6 class="card-subtitle text-muted">Email: ${profile.email}
+              <h6 class="card-subtitle text-muted">Email: Deprecated on this form.  See ${profile.name}'s full profile. 
           </div>
 
           <div class="row">
